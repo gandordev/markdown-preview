@@ -47,7 +47,7 @@ def _save_file_to_folder(*, content: str, file_name: str, folder: Path | None = 
     except Exception:
         raise
 
-    return {"content": f"Mensaje guardardado correctamente en la ruta {file_path}"}
+    return {"content": f"Archivo guardardado correctamente en la ruta {file_path}"}
 #endregion
 
 
