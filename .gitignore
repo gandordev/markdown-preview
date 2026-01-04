@@ -1,0 +1,9 @@
+.python-version
+.vscode
+
+# Virtual environments
+.venv
+.env
+
+*.egg-info
+__pycache__
