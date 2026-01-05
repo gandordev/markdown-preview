@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MarkDown Preview</title>
+
+    <!-- Files -->
+    <link rel="stylesheet" href="/styles/files.css">
+    <script src="/scripts/files.js" defer></script>
+    
+    <!-- Health check -->
+    <script src="/scripts/reload.js" defer></script>
+</head>
+
+<body>
+    <label id="drop-zone">
+        Drop files here, or click to upload.
+        <input type="file" id="file-input" multiple accept="*" />
+    </label>
+    <ul id="preview"></ul>
+    <button id="clear-btn">Limpiar archivos</button>
+    <button id="convert-md">Convertir</button>
+</body>
+
+</html>
