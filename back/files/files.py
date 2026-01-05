@@ -4,10 +4,36 @@ from MagicConvert import MagicConvert
 from puremagic.main import PureError
 
 CONVERTER = MagicConvert()
-HOME_PATH = Path.home() / "Downloads"
+DOWNLOAD_PATH = Path.home() / "Downloads"
 
 
 def convert_file_to_md(*, source: str, folder: str = "", file_name = "") -> str:
+    """
+    Convert any file to Markdown and save it.
+
+    Parameters
+    ----------
+    source : str
+        Path to the source file
+    folder : str, optional
+        Folder to save the converted file, by default ""
+    file_name : str, optional
+        Name of the MD file, by default ""
+
+    Returns
+    -------
+    str
+        Message including the path to the saved Markdown file
+
+    Raises
+    ------
+    PureError
+        Raised when the file format is incorrect
+    Exception
+        Raised when an error occurs during conversion
+    Exception
+        Raised when an error occurs during saving
+    """
     title = source.replace("\\", "/").split('/')[-1]
 
     # Convert
@@ -33,10 +59,27 @@ def convert_file_to_md(*, source: str, folder: str = "", file_name = "") -> str:
 
     return response["content"]
 
-#region private
+## Private methods ##
 def _save_file_to_folder(*, content: str, file_name: str, folder: Path | None = None) -> dict[str, str]:
+    """
+    Save content to a file in the specified folder.
+
+    Parameters
+    ----------
+    content : str
+        Content to be saved in the file
+    file_name : str
+        Name of the file to save
+    folder : Path | None, optional
+        Folder to save the file, by default is the Downloads folder
+
+    Returns
+    -------
+    dict[str, str]
+        Dictionary with a message about the saved file
+    """
     if folder is None:
-        folder = HOME_PATH
+        folder = DOWNLOAD_PATH
 
     file_path = f"{folder}/{file_name}.md"
 
@@ -48,7 +91,3 @@ def _save_file_to_folder(*, content: str, file_name: str, folder: Path | None = 
         raise
 
     return {"content": f"Archivo guardardado correctamente en la ruta {file_path}"}
-#endregion
-
-
-

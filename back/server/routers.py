@@ -13,22 +13,33 @@ STATIC_FILES = Path().cwd() / "front" / "static"
 root = APIRouter(prefix="", tags=["root"])
 
 @root.get("/")
-async def index():
+async def index() -> FileResponse:
+    """
+    Serve the index.html file.
+
+    Returns
+    -------
+    FileResponse
+        The index.html file as response
+    """
     return FileResponse(STATIC_FILES / "index.html")
-
-
-@root.websocket("/ws/reload")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    try:
-        while True:
-            await websocket.receive_text()
-    except WebSocketDisconnect:
-        pass
 
 
 @root.post("/api/convert")
 async def convert_to_md(files: List[UploadFile]) -> dict[str, list[str]]:
+    """
+    Convert uploaded files to Markdown.
+
+    Parameters
+    ----------
+    files : List[UploadFile]
+        List of uploaded files to convert
+
+    Returns
+    -------
+    dict[str, list[str]]
+        Dictionary with list of converted Markdown contents
+    """
     converted = []
 
     for file in files:
@@ -52,3 +63,21 @@ async def convert_to_md(files: List[UploadFile]) -> dict[str, list[str]]:
 
     return {"converted": converted}
 
+
+## WebSocket for live reload ##
+@root.websocket("/ws/reload")
+async def websocket_endpoint(websocket: WebSocket) -> None:
+    """
+    WebSocket endpoint for live reload.
+
+    Parameters
+    ----------
+    websocket : WebSocket
+        The websocket connection
+    """
+    await websocket.accept()
+    try:
+        while True:
+            await websocket.receive_text()
+    except WebSocketDisconnect:
+        pass
