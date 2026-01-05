@@ -2,7 +2,7 @@
 """CLI entry point para markdown-preview."""
 import click
 
-from .files.files import convert_file_to_md  # importa tu lógica
+from .files import convert_file_to_md
 from .server import run
 
 
